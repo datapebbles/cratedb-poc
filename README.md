@@ -28,3 +28,8 @@ For this use case we will be using a Multi modal algorithm from HuggingFace (htt
 
 - For python, I am using a conda environment with python 3.9 and have listed the requirements in **requirements.txt**
 - In train.py while storing the vector, we are also storing the file name along with the path. However the path is no longer valid as we are moving the file to a different folder.
+- Below is the DDL for creating the table in cratedb.
+> -   CREATE TABLE retail_data (
+  filename STRING,  
+  embeddings FLOAT_VECTOR(512)
+);
