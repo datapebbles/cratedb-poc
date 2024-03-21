@@ -19,7 +19,7 @@ def parse_args(args):
     parser.add_argument(
         '--processed-path',
         help="Folder where image should be moved to after processing",
-        required=True
+        required=False
     )
     return parser.parse_args(args)
 
@@ -36,10 +36,11 @@ def main(args):
     print(kwargs)
     files_loc = kwargs['folder_path']
     processed_files = kwargs['processed_path']
-    create_folder(processed_files)
+    if processed_files is not None:
+      create_folder(processed_files)
     if os.path.isdir(files_loc):
         files = os.listdir(files_loc)
-        model , processor = ModelConf.getModelConfImg()
+        model , processor = ModelConf().getModelConfImg()
         crateCursor = CrateConf().getCursor()
         results = []
         counter = 0
@@ -53,7 +54,8 @@ def main(args):
             image.close()
             counter = counter + 1
             file_counter += 1
-            os.rename(file_name_path, f"{processed_files}/{file}")
+            if processed_files is not None:
+                os.rename(file_name_path, f"{processed_files}/{file}")
             if counter == 10:
                 print(results)
                 crateCursor.executemany("insert into retail_data (filename,embeddings) values (?,?)",results)
