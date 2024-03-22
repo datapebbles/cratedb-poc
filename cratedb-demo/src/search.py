@@ -2,7 +2,9 @@
 from conf import CrateConf,ModelConf
 
 def search_str(prmt):
-    model , tokenizer = ModelConf().get_model_conf_text()
+    #model , tokenizer = ModelConf().get_model_conf_text()
+    model = ModelConf().model
+    tokenizer = ModelConf().tokenizer
     crateCursor = CrateConf().get_cursor()
     text=model.get_text_features(**tokenizer([prmt], return_tensors="pt", truncation=True))
     embedding = text.tolist()[0]

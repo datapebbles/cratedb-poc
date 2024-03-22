@@ -34,7 +34,8 @@ def main(args):
       create_folder(processed_files)
     if os.path.isdir(files_loc):
         files = os.listdir(files_loc)
-        model , processor = ModelConf().get_model_conf_img()
+        model = ModelConf().model
+        processor = ModelConf().processor
         crate_cursor = CrateConf().get_cursor()
         results = []
         counter = 0
@@ -58,7 +59,8 @@ def main(args):
                 results = []
                 counter = 0
         if len(results) > 0:
-            crate_cursor.executemany("insert into retail_data (filename,embeddings) values (?,?)",results) 
+            crate_cursor.executemany("insert into retail_data (filename,embeddings) values (?,?)",results)
+            print("inserted final batch") 
         crate_cursor.close()
     else:
         raise Exception(f"{files_loc} Not a directory")
