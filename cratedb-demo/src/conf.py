@@ -1,34 +1,34 @@
 from transformers import AutoImageProcessor, AutoModel, AutoTokenizer
 from crate import client
-class ModelConf():
+class ModelConf:
     def __init__(self,device="cpu") -> None:
         self.device=device
     
-    def getModel(self):
+    def get_model(self):
         return AutoModel.from_pretrained("openai/clip-vit-base-patch16").to(self.device)
 
-    def getProcessor(self):
+    def get_processor(self):
         return AutoImageProcessor.from_pretrained("openai/clip-vit-base-patch16")
     
-    def getTokenizer(self):
+    def get_tokenizer(self):
         return AutoTokenizer.from_pretrained("openai/clip-vit-base-patch16")
     
-    def getModelConfImg(self):
-        model = self.getModel()
-        processor = self.getProcessor()
+    def get_model_conf_img(self):
+        model = self.get_model()
+        processor = self.get_processor()
         return model,processor
     
-    def getModelConfText(self):
-        model = self.getModel()
-        tokenizer = self.getTokenizer()
+    def get_model_conf_text(self):
+        model = self.get_model()
+        tokenizer = self.get_tokenizer()
         return model,tokenizer
 
-class CrateConf():
+class CrateConf:
     def __init__(self,host="localhost:4200",username="crate"):
         self.host=host
         self.username=username
     
-    def getCursor(self):
+    def get_cursor(self):
         connection = client.connect(self.host, username=self.username)
         cursor = connection.cursor()
         return cursor

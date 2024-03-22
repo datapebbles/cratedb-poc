@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 from conf import CrateConf,ModelConf
-from PIL import Image
 
 def search_str(prmt):
-    #print(prmt)
-    model , tokenizer = ModelConf().getModelConfText()
-    crateCursor = CrateConf().getCursor()
+    model , tokenizer = ModelConf().get_model_conf_text()
+    crateCursor = CrateConf().get_cursor()
     text=model.get_text_features(**tokenizer([prmt], return_tensors="pt", truncation=True))
     embedding = text.tolist()[0]
     query = f"SELECT filename FROM retail_data WHERE knn_match(embeddings, {embedding}, 2) ORDER BY _score DESC limit 1"

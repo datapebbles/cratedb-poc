@@ -1,2 +1,2 @@
-pillow
-cratedb
+pillow==9.2.0
+crate==0.35.2

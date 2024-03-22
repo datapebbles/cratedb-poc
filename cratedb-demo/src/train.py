@@ -23,12 +23,6 @@ def parse_args(args):
     )
     return parser.parse_args(args)
 
-'''def getModelConf():
-    modelConf = ModelConf()
-    model = modelConf.getModel()
-    processor = modelConf.getProcessor()
-    return model,processor'''
-
 
 def main(args):
     parsed_args = parse_args(args)
@@ -40,8 +34,8 @@ def main(args):
       create_folder(processed_files)
     if os.path.isdir(files_loc):
         files = os.listdir(files_loc)
-        model , processor = ModelConf().getModelConfImg()
-        crateCursor = CrateConf().getCursor()
+        model , processor = ModelConf().get_model_conf_img()
+        crate_cursor = CrateConf().get_cursor()
         results = []
         counter = 0
         file_counter = 1
@@ -58,14 +52,14 @@ def main(args):
                 os.rename(file_name_path, f"{processed_files}/{file}")
             if counter == 10:
                 print(results)
-                crateCursor.executemany("insert into retail_data (filename,embeddings) values (?,?)",results)
+                crate_cursor.executemany("insert into retail_data (filename,embeddings) values (?,?)",results)
                 print("inserted batch of 10 file embeddings")
-                del(results)
+                del results
                 results = []
                 counter = 0
         if len(results) > 0:
-            crateCursor.executemany("insert into retail_data (filename,embeddings) values (?,?)",results) 
-        crateCursor.close()
+            crate_cursor.executemany("insert into retail_data (filename,embeddings) values (?,?)",results) 
+        crate_cursor.close()
     else:
         raise Exception(f"{files_loc} Not a directory")
 
