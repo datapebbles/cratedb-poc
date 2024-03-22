@@ -10,8 +10,8 @@ For this use case we will be using a Multi modal algorithm from HuggingFace (htt
 >
 #### train.py
 > - This python script takes two inputs 
->      1. The folder which contains the images dataset whose vectors are to be generated
->      2. The folder where the images should be moved after processing, to avoid reprocessing in case of failures.
+>      1. The folder which contains the images dataset whose vectors are to be generated.
+>      2. The folder where the images should be moved after processing, to avoid reprocessing in case of failures. This is optional.
 >       
 > - The script processes the files in source folder, generates embeddings and stores them in a table retail_data as a vector.
 >
